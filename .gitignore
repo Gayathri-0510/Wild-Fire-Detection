@@ -1,0 +1,34 @@
+# 🔥 Ignore dataset folders
+data/
+dataset/
+*.zip
+*.tar
+*.gz
+
+# 🔥 Ignore large files
+*.h5
+*.pt
+*.pth
+*.ckpt
+
+# 🔥 Ignore uploads
+app/uploads/
+
+# 🔥 Ignore notebooks checkpoints
+.ipynb_checkpoints/
+
+# 🔥 Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# 🔥 Virtual environment
+venv/
+env/
+
+# 🔥 OS files
+.DS_Store
+Thumbs.db
+
+# 🔥 Logs
+*.log
