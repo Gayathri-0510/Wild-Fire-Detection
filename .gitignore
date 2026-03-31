@@ -5,11 +5,16 @@ dataset/
 *.tar
 *.gz
 
-# 🔥 Ignore large files
+# 🔥 Ignore large model files everywhere
 *.h5
 *.pt
 *.pth
 *.ckpt
+
+# ✅ Allow only main final model inside models folder
+!models/
+!models/mobilenetv2_wildfire.h5
+!models/.gitkeep
 
 # 🔥 Ignore uploads
 app/uploads/
