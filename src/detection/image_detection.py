@@ -43,9 +43,29 @@ class ImageDetector:
                     detections.append({'bbox': bbox, 'confidence': conf})
                     image = draw_bounding_box(image, bbox, f"Fire {conf:.2f}")
             else:
-                # We have a positive from MobileNet but no YOLO model loaded
-                cv2.putText(image, "FIRE OVERALL (No Bbox Model)", (20, 50), 
+                # Fallback: OpenCV Color-Contour Detection since YOLO model is absent
+                cv2.putText(image, "FIRE DETECTED (Color Fallback BBox)", (20, 50), 
                             cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 0, 255), 2)
+                
+                import numpy as np
+                hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
+                # Define range for red, orange, yellow in HSV
+                lower_bound = np.array([0, 120, 150]) 
+                upper_bound = np.array([35, 255, 255])
+                
+                mask = cv2.inRange(hsv, lower_bound, upper_bound)
+                contours, _ = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+                
+                if contours:
+                    largest_contour = max(contours, key=cv2.contourArea)
+                    if cv2.contourArea(largest_contour) > 100: # filter noise
+                        x, y, w, h = cv2.boundingRect(largest_contour)
+                        bbox = [x, y, x+w, y+h]
+                        conf = confidence if 'confidence' in locals() else 0.95
+                        detections.append({'bbox': bbox, 'confidence': conf})
+                        
+                        # Use the existing drawing function (draws RED by default)
+                        image = draw_bounding_box(image, bbox, f"Fire {conf:.2f}")
         
         if output_path is not None:
              cv2.imwrite(output_path, image)
