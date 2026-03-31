@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wildfire Detection AI | Real-time Analysis</title>
+    <meta name="description" content="AI-powered Wildfire Detection System using MobileNetV2 and YOLOv8 for early alerts.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <!-- Abstract blurred background for glassmorphism -->
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    
+    <div class="container glass-panel">
+        <header>
+            <h1>Wildfire <span>AI</span></h1>
+            <p>Real-Time Deep Learning Fire Detection</p>
+        </header>
+
+        <main>
+            <div class="upload-section">
+                <form id="upload-form" enctype="multipart/form-data">
+                    <div class="drop-zone" id="drop-zone">
+                        <span class="drop-icon">🔥</span>
+                        <h3>Drag & Drop an image here</h3>
+                        <p>or click to browse from your device</p>
+                        <input type="file" name="file" id="file-input" accept="image/jpeg, image/png" hidden>
+                    </div>
+                </form>
+            </div>
+
+            <div class="results-section hidden" id="results">
+                <div class="loader" id="loader">
+                    <div class="spinner"></div>
+                    <p>Analyzing frame via MobileNetV2 & YOLOv8...</p>
+                </div>
+                
+                <div class="result-content hidden" id="result-content">
+                    <div class="status-badge" id="status-badge"></div>
+                    <div class="image-preview-container">
+                        <img id="result-image" alt="Detection Output">
+                    </div>
+                    <div class="metrics">
+                        <div class="metric-card">
+                            <h4>Detections</h4>
+                            <span id="detection-count">0</span>
+                        </div>
+                    </div>
+                    <button class="btn reset-btn" onclick="resetApp()">Scan Another Image</button>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

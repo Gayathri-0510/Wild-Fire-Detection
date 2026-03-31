@@ -1,0 +1,26 @@
+paths:
+  raw_data: "data/raw"
+  processed_data: "data/processed"
+  models_dir: "models"
+  uploads_dir: "app/uploads"
+  video_samples: "data/sample"
+
+model:
+  classification_model: "models/mobilenetv2_wildfire.h5"
+  detection_model: "models/yolov8_wildfire.pt"
+  img_size: [224, 224]
+  batch_size: 32
+  fire_confidence_threshold: 0.6
+  consecutive_frames_alert: 10
+
+alerts:
+  twilio_account_sid: "${TWILIO_ACCOUNT_SID}"
+  twilio_auth_token: "${TWILIO_AUTH_TOKEN}"
+  twilio_from_number: "${TWILIO_FROM_NUMBER}"
+  twilio_to_number: "${TWILIO_TO_NUMBER}"
+  
+  smtp_server: "smtp.gmail.com"
+  smtp_port: 587
+  sender_email: "${SENDER_EMAIL}"
+  sender_password: "${SENDER_PASSWORD}"
+  receiver_email: "${RECEIVER_EMAIL}"
